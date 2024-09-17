@@ -46,6 +46,18 @@ class CalculatorScreenState extends State<CalculatorScreen> {
         } catch (e) {
           _display = 'Error';
         }
+      } else if (value == '^2') {
+        try {
+          String finalExpression =
+              _expression.replaceAll('x', '*').replaceAll('÷', '/');
+          Expression exp = Expression.parse(finalExpression);
+          const evaluator = ExpressionEvaluator();
+          var result = evaluator.eval(exp, {});
+          _display = (result * result).toString();
+          _expression = _display;
+        } catch (e) {
+          _display = 'Error';
+        }
       } else {
         if (_display == '0' && value != '.') {
           _display = value;
@@ -281,6 +293,18 @@ class CalculatorScreenState extends State<CalculatorScreen> {
                         ),
                         _buildButton(
                           label: '=',
+                          color: Colors.pink[200]!,
+                          textColor: Colors.white,
+                          width: buttonSize,
+                          height: buttonSize,
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        _buildButton(
+                          label: '^2',
                           color: Colors.pink[200]!,
                           textColor: Colors.white,
                           width: buttonSize,
